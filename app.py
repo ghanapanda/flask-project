@@ -1,5 +1,6 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 from datetime import datetime
+import json
 
 app = Flask(__name__)
 
@@ -18,6 +19,12 @@ def submit():
     print(form_data)
     
     return form_data
+
+@app.route("/api")
+def api():
+    with open("data.json") as f:
+        data = json.load(f)
+    return jsonify(data)
 
 if __name__ == "__main__":
     app.run(debug=True)
